@@ -1,58 +1,25 @@
-import { Observable, Subject } from 'rxjs';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import {AllPrice, AppState} from './app.state';
-import { Product } from './product.model';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { AppState} from './app.state';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
 
-  allPrice$: Observable<AllPrice>;
-  products$: Observable<Product[]>;
   productCountInBasket$: Observable<number>;
-  selectedProduct$: Observable<Product | null>;
 
-  private destroy$ = new Subject();
+  constructor(private router: Router,
+              private appState: AppState) {
 
-  constructor(private appState: AppState) {}
-
-  ngOnInit() {
-    this.allPrice$ = this.appState.allPrice$;
-    this.products$ = this.appState.products$;
     this.productCountInBasket$ = this.appState.productCountInBasket$;
-    this.selectedProduct$ = this.appState.selectedProduct$;
   }
 
-  computeAllPrice() {
-    this.appState.computeAllPrice();
-  }
-
-  buyProduct(product: Product) {
-    this.appState.addProductInBasket(product);
-  }
-
-  deleteProduct(product: Product) {
-    this.appState.removeProduct(product);
-  }
-
-  selectProduct(product: Product) {
-    this.appState.selectProduct(product);
-  }
-
-  handleSubmit(product: Product) {
-    if (product._id) {
-     this.appState.updateProduct(product);
-    } else {
-      this.appState.addProduct(product);
-    }
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+  async computeAllPrice() {
+    await this.appState.computeAllPrice();
+    this.router.navigate(['/home']);
   }
 }

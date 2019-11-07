@@ -27,6 +27,10 @@ export class AppState {
     this.loadAllProducts();
   }
 
+  get basket$(): Observable<Basket[]> {
+    return this.basket.asObservable();
+  }
+
   get products$(): Observable<Product[]> {
     return this.products.asObservable();
   }
@@ -49,6 +53,38 @@ export class AppState {
 
   selectProduct(product: Product) {
     this.selectedProduct.next(product);
+  }
+
+  addProductInBasket(product: Product) {
+    const basketItems = this.basket.getValue();
+    const index = basketItems.findIndex(item => item._id === product._id);
+
+    if (index !== -1) {
+      const quantity = basketItems[index].quantity + 1;
+      basketItems[index] = {...basketItems[index], quantity};
+    } else {
+      basketItems.push({...product, quantity: 1});
+    }
+
+    this.basket.next(basketItems);
+    this.allPrice.next(null);
+  }
+
+  removeProductFromBasket(product: Product) {
+    let basketItems = this.basket.getValue();
+    const index = basketItems.findIndex(item => item._id === product._id);
+
+    if (basketItems[index].quantity > 1) {
+
+      const quantity = basketItems[index].quantity - 1;
+      basketItems[index] = {...basketItems[index], quantity};
+
+    } else {
+      basketItems = basketItems.filter(item => item._id !== product._id);
+    }
+
+    this.basket.next(basketItems);
+    this.allPrice.next(null);
   }
 
   async addProduct(product: Product) {
@@ -108,21 +144,6 @@ export class AppState {
       this.alertService.error('Sorry All price was not computed');
       throw e;
     }
-  }
-
-  addProductInBasket(product: Product) {
-    const basketItems = this.basket.getValue();
-    const index = basketItems.findIndex(item => item._id === product._id);
-
-    if (index !== -1) {
-      const quantity = basketItems[index].quantity + 1;
-      basketItems[index] = {...basketItems[index], quantity};
-    } else {
-      basketItems.push({...product, quantity: 1});
-    }
-
-    this.basket.next(basketItems);
-    this.allPrice.next(null);
   }
 
   async loadAllProducts() {

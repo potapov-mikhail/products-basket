@@ -13,6 +13,8 @@ import { ProductBasketComponent } from './components/product-basket/product-bask
 import { ErrorValidationMessageComponent } from './components/error-validation-message/error-validation-message.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AllPriceComponent } from './components/all-price/all-price.component';
+import { HomeComponent } from './pages/home/home.component';
+import { BasketComponent } from './pages/basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AllPriceComponent } from './components/all-price/all-price.component';
     ProductBasketComponent,
     ErrorValidationMessageComponent,
     AlertComponent,
-    AllPriceComponent
+    AllPriceComponent,
+    HomeComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,

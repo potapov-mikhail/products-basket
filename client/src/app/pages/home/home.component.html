@@ -1,0 +1,23 @@
+<div class="row mt-5">
+  <div class="col-6">
+    <app-product-list
+      [products]="products$ | async"
+      [selectedProduct]="selectedProduct$ | async"
+      (bayed)="buyProduct($event)"
+      (selected)="selectProduct($event)"
+      (deleted)="deleteProduct($event)">
+    </app-product-list>
+  </div>
+  <div class="col-6">
+    <app-product-form
+      [product]="selectedProduct$ | async"
+      (submitted)="handleSubmit($event)">
+    </app-product-form>
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <app-all-price [allPrice]="allPrice$ | async"></app-all-price>
+      </div>
+    </div>
+  </div>
+</div>

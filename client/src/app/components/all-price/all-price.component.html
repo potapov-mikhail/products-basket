@@ -1,7 +1,8 @@
 <div class="jumbotron all-price" *ngIf="allPrice">
-  <p class="lead">RUB: {{ allPrice.RUB }}</p>
+  <h5>Total Price</h5>
+  <p class="lead">{{ allPrice.RUB | currency: 'RUB' }}</p>
   <hr class="my-4">
-  <p class="lead">USD: {{ allPrice.USD }}</p>
+  <p class="lead">{{ allPrice.USD | currency: 'USD'}}</p>
   <hr class="my-4">
-  <p class="lead">EUR: {{ allPrice.EUR }}</p>
+  <p class="lead">{{ allPrice.EUR | currency: 'EUR'}}</p>
 </div>

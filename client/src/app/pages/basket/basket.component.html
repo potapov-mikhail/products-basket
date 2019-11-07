@@ -1,0 +1,13 @@
+<ul class="list-group">
+  <li *ngFor="let basketItem of basket$ | async"
+      class="list-group-item d-flex justify-content-between align-items-center">
+
+    <span>{{ basketItem.name }}</span>
+    <div>
+      <button class="btn btn-sm btn-warning" (click)="handleMinus(basketItem)">-</button>
+      <span class="my-3">{{ basketItem.quantity }}</span>
+      <button class="btn btn-sm btn-warning" (click)="handlePlus(basketItem)">+</button>
+    </div>
+  </li>
+</ul>
+
