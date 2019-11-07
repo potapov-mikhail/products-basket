@@ -1,0 +1,7 @@
+<div *ngIf="control && control.touched && control.errors" class="text-danger">
+  <ng-container *ngFor="let item of messages">
+    <small *ngIf="control.errors && control.errors[item.name]">
+      {{ item?.message }} <span *ngIf="control.errors.minlength">{{ control.errors.minlength.requiredLength }}</span>.
+    </small>
+  </ng-container>
+</div>

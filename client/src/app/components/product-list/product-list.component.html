@@ -1,0 +1,16 @@
+<ul class="list-group">
+  <li *ngFor="let product of products"
+
+    class="list-group-item d-flex justify-content-between align-items-center"
+    [class.active]="selectedProduct?._id === product._id"
+    (click)="handleSelected(product)">
+
+    <span>{{ product.name }} {{ product.price }} {{ product.currency }}</span>
+    <div>
+      <button class="btn btn-sm btn-success mx-1" (click)="$event.stopPropagation(); handleBuy(product)">Buy</button>
+      <button class="btn btn-sm btn-danger mx-1" (click)="$event.stopPropagation(); handleDelete(product)">Delete</button>
+    </div>
+
+  </li>
+</ul>
+
