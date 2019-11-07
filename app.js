@@ -1,4 +1,5 @@
 const cors = require('cors');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -9,6 +10,7 @@ function createApp() {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
   app.use(cors());
+  app.use(express.static(path.resolve(__dirname, 'client', 'dist', 'frontend')));
 
   app.use('/api/products', productRoutes);
   app.use('*', (req, res) => {
